@@ -42,6 +42,20 @@ modules:
    properties:
       TENANT_HOST_PATTERN: "^(.*)-trial-dev-mtapprouter.cfapps.eu10.hana.ondemand.com"
 
+
+ - name: web
+   type: com.sap.portal.content
+   path: web
+   parameters:
+      stack: cflinuxfs3
+      memory: 128M
+      buildpack: https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip
+   requires:
+    - name: portal_resources_MTApp
+    - name: uaa_MTApp
+    - name: dt_MTApp_appRouter
+    - name: MTAppui_deployer
+
 resources:
  - name: MTAppUAA
    parameters:
@@ -50,3 +64,10 @@ resources:
       service: xsuaa
       shared: true
    type: org.cloudfoundry.managed-service
+ - name: portal_resources_MTApp
+   parameters:
+      service-plan: standard
+      service: portal
+   type: org.cloudfoundry.managed-service
+
+                                         
